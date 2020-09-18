@@ -1,0 +1,55 @@
+#!/bin/bash
+echo "Existing DBs are:"
+cat theList
+echo "Kindly enter DB name to open" 
+read dbinput
+echo Now you are working with $dbinput DB
+echo "	1)Create new table"
+echo "	2)Delete table"
+echo "	3)Insert into table"
+echo "	4)Modify a table"
+echo "	5)Display a table"
+echo "	6)List existing tables"
+echo "	7)Back to main menu"
+echo "Enter your choice"
+read myChoice
+case $myChoice in
+1). ./NewTable 
+  ;;
+2)
+ if ! grep -q '[^[:space:]]' "./$dbinput/TableList"
+ then
+  echo "No table exist"
+ else 
+  echo "Please enter table name"
+  read deleteTable 
+  rm -r $dbinput/$deleteTable
+  sed -i "s/$deleteTable//g" ./$dbinput/TableList
+ fi
+  echo ""
+  . ./OpenDB
+  ;;
+3)
+  ;;
+4) 
+  ;;
+5)
+if [[ $(ls -A $dbinput) ]] 
+then
+ echo "please enter table name"
+ read displaytablename
+ cat ./$dbinput/$displaytablename
+else
+echo "Empty DB"
+fi
+echo ""
+. ./OpenDB
+  ;;
+6)
+  cat $dbinput/TableList
+  echo ""
+  . ./OpenDB
+  ;;
+7). ./project
+  ;;
+esac

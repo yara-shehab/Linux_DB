@@ -1,0 +1,46 @@
+#!/bin/bash
+echo "1)Create DB"
+echo "2)Delete DB"
+echo "3)Open DB"
+echo "4)List existing table"
+echo ""
+echo "Enter your choice : "
+read choice
+case $choice in
+1)
+. ./NewDB ;;
+2)
+if ! grep -q '[^[:space:]]' "./theList"  
+then
+  echo "NO DB found "
+else
+ echo "please enter DB name to be deleted"
+ read deleteName
+ sed -i "s/$deleteName//g" ./theList
+ rm -r $deleteName
+fi
+. ./DB
+;;
+3)
+if ! grep -q '[^[:space:]]' "./theList"
+then
+ echo "NO DB found"
+. ./DB
+else
+echo "Please enter your DB name"
+. ./OpenDB 
+fi
+;;
+4)
+if ! grep -q '[^[:space:]]' "./theList" 
+then
+ echo "No DB Found"
+else
+ cat theList
+fi
+. ./DB
+;;
+*)
+echo "Not an integer" ;;
+esac
+

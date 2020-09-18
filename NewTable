@@ -1,0 +1,32 @@
+#!/bin/bash
+echo "Enter table name"
+read tableName
+touch $dbinput/$tableName
+echo "$tableName" >> $dbinput/TableList
+echo You are now working with: $tableName  table
+echo "Please enter number of colums"
+read colums
+echo You are setting the names and datatypes of columns in $tableName table
+X=1
+while [ $X -le $colums ]
+do
+ echo Please enter the name of column $X
+ read columName
+ echo What datatype are you going to store in $columName column? 
+ echo "1)Integer"
+ echo "2)String"
+ read type
+ case $type in 
+  1) 
+   printf "$columName :			 " >> $dbinput/$tableName
+    ;;
+  2)
+   printf  "$columName :		 " >> $dbinput/$tableName
+    ;;
+  *)
+   X=$(( $X - 1 )) ;;
+ esac
+ X=$(( $X + 1 ))
+done
+echo "" >> $dbinput/$tableName
+. ./OpenDB

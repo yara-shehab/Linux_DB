@@ -1,0 +1,11 @@
+#!/bin/bash
+echo "Please enter DB name"
+read DB1
+if [ ! -d $DB1 ]
+then
+echo "$DB1" >> theList
+mkdir $DB1
+else
+echo "Folder exist"
+fi
+. ./DB
